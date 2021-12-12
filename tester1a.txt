@@ -1,0 +1,173 @@
+import csv
+import os.path
+from pathlib import Path
+
+
+z=0
+y=0
+lastRow=("Z")
+
+
+
+with open("combined1a.csv", newline='') as csvfile:
+    reader = csv.reader(csvfile)
+            
+    for row in reader:
+        x=int(row[7])
+        #print (x)
+        if x!=y:
+            y+=1
+            found130=False
+            found125=False
+            found120=False
+            found115=False
+            found110=False
+            zulu=0
+            #print (x,y)
+            #if row[1]!= "voltage":
+                #with open("asdz.csv","a", newline="") as newcsv:
+                    #writer=csv.writer(newcsv)
+                    #writer.writerow(row)
+                    #print ("NEW Row")
+            
+            if lastRow!=("Z"):
+                with open("asdz.csv","a", newline="") as newcsv:
+                    writer=csv.writer(newcsv)
+                    writer.writerow(lastRow)
+                    print ("NEW Row")
+        
+        if x==y:
+            if zulu==0 and row[1]!= "voltage":
+                with open("asdz.csv","a", newline="") as newcsv:
+                    writer=csv.writer(newcsv)
+                    writer.writerow(row)
+                    print ("NEW Row")
+                zulu=1
+                
+            try:
+                if float (row[1])<15.9 and float (row[1])>11.5 and found130==False :
+                    #print(" YYYYEEEEESSSSSS", row[1], y)
+                    
+                    if float(row[1])>=13.0:
+                        holdRow=row
+                        
+                        fHR1=float(holdRow[1])
+                        #print (zed)
+
+                    elif float(row[1])<13.0:
+                        found130=True
+                        print (">>>>TRUE<<<")
+                        fR1=float(row[1])
+                        if fHR1-13>(fR1-13)/-1:
+                            print ("A=", row)
+                            
+                        elif fHR1-13<(fR1-13)/-1:
+                            print ("B=", holdRow)
+                            
+                        else:
+                            print ("xA=", row)
+                            
+                            print ("xB=", holdRow)
+                            
+                        
+                        #print (y)
+                        #print ("Hold Row=",fHR1-13)
+                        #print ("Row=",(fR1-13)/-1)
+                        #print ()
+                elif float (row[1])<13.2 and float (row[1])>11.5 and found130==True and found125==False :
+                    
+                    if float(row[1])>=12.5:
+                        holdRow=row
+                        
+                        fHR1=float(holdRow[1])
+                        #print (zed)
+
+                    elif float(row[1])<12.5:
+                        found125=True
+                        print (">>>>TRUE<<<")
+                        fR1=float(row[1])
+                        if fHR1-13>(fR1-13)/-1:
+                            print ("A=", row)
+                            with open("asd.csv","a", newline="") as newcsv:
+                                writer=csv.writer(newcsv)
+                                writer.writerow(row) 
+                        else:
+                            print ("B=", holdRow)
+                            with open("asd.csv","a", newline="") as newcsv:
+                                writer=csv.writer(newcsv)
+                                writer.writerow(holdRow)
+
+                elif float (row[1])<13.2 and float (row[1])>11.5 and found125==True and found120==False :
+                    
+                    if float(row[1])>=12.0:
+                        holdRow=row
+                        
+                        fHR1=float(holdRow[1])
+                        #print (zed)
+
+                    elif float(row[1])<12.0:
+                        found120=True
+                        print (">>>>TRUE<<<")
+                        fR1=float(row[1])
+                        if fHR1-13>(fR1-13)/-1:
+                            with open("asd.csv","a", newline="") as newcsv:
+                                writer=csv.writer(newcsv)
+                                writer.writerow(row) 
+                        else:
+                            print ("B=", holdRow)
+                            with open("asd.csv","a", newline="") as newcsv:
+                                writer=csv.writer(newcsv)
+                                writer.writerow(holdRow)
+
+                elif float (row[1])<12.2 and float (row[1])>11.0 and found120==True and found115==False :
+                    
+                    if float(row[1])>=11.5:
+                        holdRow=row
+                        
+                        fHR1=float(holdRow[1])
+                        #print (zed)
+
+                    elif float(row[1])<11.5:
+                        found115=True
+                        print (">>>>TRUE<<<")
+                        fR1=float(row[1])
+                        if fHR1-13>(fR1-13)/-1:
+                            with open("asd.csv","a", newline="") as newcsv:
+                                writer=csv.writer(newcsv)
+                                writer.writerow(row) 
+                        else:
+                            print ("B=", holdRow)
+                            with open("asd.csv","a", newline="") as newcsv:
+                                writer=csv.writer(newcsv)
+                                writer.writerow(holdRow)
+                elif float (row[1])<12.2 and float (row[1])>10.3 and found115==True and found110==False :
+                    
+                    if float(row[1])>=11.0:
+                        holdRow=row
+                        
+                        fHR1=float(holdRow[1])
+                        #print (zed)
+
+                    elif float(row[1])<11.0:
+                        found110=True
+                        print (">>>>TRUE<<<")
+                        fR1=float(row[1])
+                        if fHR1-13>(fR1-13)/-1:
+                            with open("asd.csv","a", newline="") as newcsv:
+                                writer=csv.writer(newcsv)
+                                writer.writerow(row) 
+                        else:
+                            print ("B=", holdRow)
+                            with open("asd.csv","a", newline="") as newcsv:
+                                writer=csv.writer(newcsv)
+                                writer.writerow(holdRow)
+
+            except:
+                continue
+        lastRow=row
+
+        
+    if x==4:
+        input()
+
+
